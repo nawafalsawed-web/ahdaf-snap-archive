@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>أرشيف سناب · أهداف</title>
+<meta name="description" content="توثيق إعلانات المؤثرين في سناب شات تلقائياً">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="site.css">
+<style>
+.hero{padding:56px 0 32px}
+.hero .sum{margin-top:16px;font-size:18px;color:var(--ink-2);max-width:760px}
+.sec{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:40px 0 16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,400px),1fr));gap:18px}
+.cmp{display:flex;flex-direction:column;gap:14px;padding:20px;text-decoration:none;color:inherit;transition:box-shadow .2s,transform .2s}
+.cmp:hover{box-shadow:var(--sh-l);transform:translateY(-2px)}
+.cmp .top{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.cmp .title{font-family:var(--display);font-weight:700;font-size:26px;line-height:1.2}
+.thumbs{display:flex;gap:6px;height:96px}
+.thumbs img{height:100%;aspect-ratio:9/16;object-fit:cover;border-radius:8px;background:var(--line)}
+.thumbs .none{flex:1;border:1.5px dashed var(--line);border-radius:10px;display:grid;place-items:center;color:var(--mut);font-size:14px}
+.meta{display:flex;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--ink-2)}
+.meta span{display:inline-flex;gap:6px;align-items:center}.meta .ic{width:15px;height:15px;color:var(--mut)}
+.meta b{color:var(--ink)}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+.how div{padding:16px 18px;font-size:14.5px;color:var(--ink-2)}
+.how b{display:block;color:var(--ink);font-size:16px;margin-bottom:4px}
+@media(max-width:720px){.hero{padding:32px 0 16px}.how{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="wrap">
+ <section class="hero">
+  <div class="eyebrow"><span>أهداف</span><span>أرشيف سناب</span></div>
+  <h1 class="h-display" style="margin-top:12px">كل إعلان سناب، محفوظ بوقته</h1>
+  <p class="sum" id="sum">نحمّل الحملات…</p>
+  <div class="how">
+   <div class="panel"><b>١. أضف الحملة</b>حط يوزرات المؤثرين والفترة من وإلى.</div>
+   <div class="panel"><b>٢. نسحب كل ساعة</b>أي سناب ينزل بقصة المؤثر العامة داخل الفترة ينحفظ بالمقطع الأصلي.</div>
+   <div class="panel"><b>٣. حمّل وأرسل</b>كل سناب بوقت نشره، وتحميل الحملة كاملة بملف واحد.</div>
+  </div>
+ </section>
+ <div class="sec"><h2 class="h2">الحملات</h2><a class="btn pri sm" href="edit.html">إضافة حملة</a></div>
+ <div class="grid" id="list"></div>
+</main>
+<footer class="foot">أهداف · نربط الإبداع بالهدف</footer>
+<script src="icons.js"></script>
+<script src="lib.js"></script>
+<script>
+topbar();
+const order={live:0,upcoming:1,ended:2};
+getJson('campaigns.json').then(async list=>{
+ const L=document.getElementById('list');
+ const live=list.filter(c=>phase(c)==='live').length;
+ document.getElementById('sum').innerHTML=list.length
+  ?`<b>${N(live)}</b> حملة شغّالة الحين من أصل ${N(list.length)}. السحب يصير تلقائياً كل ساعة.`
+  :'ما فيه حملات للحين. ابدأ بإضافة أول حملة.';
+ if(!list.length){L.innerHTML=`<div class="panel empty" style="grid-column:1/-1">ما فيه حملات.<br><a class="btn pri" href="edit.html">${ic('plus')}أضف حملة</a></div>`;return}
+ list.sort((a,b)=>order[phase(a)]-order[phase(b)]||new Date(b.from)-new Date(a.from));
+ for(const c of list){
+  const el=document.createElement('a'); el.className='panel cmp'; el.href=`campaign.html?c=${c.slug}`;
+  el.innerHTML=`<div class="top"><div class="eyebrow">${c.client?`<span>${esc(c.client)}</span>`:''}<span>${N(c.handles.length)} مؤثر</span></div>${phasePill(c)}</div>
+   <div class="title">${esc(c.title)}</div><div class="thumbs"><div class="none">${phase(c)==='upcoming'?'تبدأ '+dFull(new Date(c.from)):'ما انحفظ شي للحين'}</div></div>
+   <div class="meta"><span>${ic('calendar-days')}${period(c)}</span><span class="cnt"></span></div>`;
+  L.appendChild(el);
+  getJson(`campaigns/${c.slug}/snaps.json`).then(d=>{
+   if(!d.snaps.length)return;
+   const last=[...d.snaps].sort((a,b)=>b.t-a.t);
+   el.querySelector('.thumbs').innerHTML=last.slice(0,8).map(s=>`<img loading="lazy" alt="" src="campaigns/${c.slug}/${s.p||s.f}">`).join('');
+   el.querySelector('.cnt').innerHTML=`${ic('film')}<b>${N(d.snaps.length)}</b> سناب محفوظ`;
+  }).catch(()=>{});
+ }
+});
+</script>
+</body>
+</html>

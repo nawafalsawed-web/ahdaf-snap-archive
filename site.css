@@ -1,0 +1,6 @@
+/* additions on top of the shared Ahdaf app.css */
+.topbar nav a{display:inline-flex;align-items:center;gap:6px}
+.topbar nav .ic{width:15px;height:15px}
+.empty{padding:40px 24px;text-align:center;color:var(--ink-2)}
+.empty .btn{margin-top:14px}
+.pill:not(.ok):not(.fix){background:var(--line-2);color:var(--mut)}
