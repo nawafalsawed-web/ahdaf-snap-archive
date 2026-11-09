@@ -3,76 +3,167 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>أرشيف سناب · أهداف</title>
-<meta name="description" content="توثيق إعلانات المؤثرين في سناب شات تلقائياً">
+<title>حفظ ستوري سناب · أهداف</title>
+<meta name="description" content="حط يوزر المؤثر واحفظ مقاطع قصته بضغطة زر">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="app.css">
-<link rel="stylesheet" href="site.css">
 <style>
-.hero{padding:56px 0 32px}
-.hero .sum{margin-top:16px;font-size:18px;color:var(--ink-2);max-width:760px}
-.sec{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:40px 0 16px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,400px),1fr));gap:18px}
-.cmp{display:flex;flex-direction:column;gap:14px;padding:20px;text-decoration:none;color:inherit;transition:box-shadow .2s,transform .2s}
-.cmp:hover{box-shadow:var(--sh-l);transform:translateY(-2px)}
-.cmp .top{display:flex;justify-content:space-between;gap:10px;align-items:center}
-.cmp .title{font-family:var(--display);font-weight:700;font-size:26px;line-height:1.2}
-.thumbs{display:flex;gap:6px;height:96px}
-.thumbs img{height:100%;aspect-ratio:9/16;object-fit:cover;border-radius:8px;background:var(--line)}
-.thumbs .none{flex:1;border:1.5px dashed var(--line);border-radius:10px;display:grid;place-items:center;color:var(--mut);font-size:14px}
-.meta{display:flex;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--ink-2)}
-.meta span{display:inline-flex;gap:6px;align-items:center}.meta .ic{width:15px;height:15px;color:var(--mut)}
-.meta b{color:var(--ink)}
-.how{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
-.how div{padding:16px 18px;font-size:14.5px;color:var(--ink-2)}
-.how b{display:block;color:var(--ink);font-size:16px;margin-bottom:4px}
-@media(max-width:720px){.hero{padding:32px 0 16px}.how{grid-template-columns:1fr}}
+.topbar nav{display:none}
+main{max-width:1100px}
+.hero{padding:48px 0 8px;text-align:center}
+.hero .h-display{font-size:clamp(34px,5vw,58px);margin-top:10px}
+.hero .lead{margin:12px auto 0}
+.eyebrow{justify-content:center}
+.box{padding:22px;margin-top:26px;display:flex;flex-direction:column;gap:16px}
+.go{display:flex;gap:10px}
+.go .inp{font-size:17px;padding:13px 16px;direction:ltr;text-align:left}
+.go .btn{flex:none}
+.when{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:14px;color:var(--ink-2)}
+.when .seg{max-width:100%;overflow-x:auto;scrollbar-width:none}.when .seg button{padding:6px 12px;white-space:nowrap}
+.range{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.range .inp{width:auto;padding:6px 10px;font-size:14px}
+.msg{font-size:15px;text-align:center;color:var(--ink-2);min-height:22px}
+.msg.err{color:var(--no)}
+.acc{margin-top:26px}
+.acc .hd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:16px 18px;border-bottom:1px solid var(--line-2)}
+.acc .hd img{width:46px;height:46px;border-radius:50%;background:var(--line)}
+.acc .hd b{font-size:18px;display:block;line-height:1.3}
+.acc .hd .small{direction:ltr;display:inline-block}
+.acc .hd .sp{flex:1}
+.acc .none{padding:26px;text-align:center;color:var(--ink-2)}
+.snaps{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px;padding:18px}
+.sn{display:flex;flex-direction:column;gap:6px}
+.sn .ph{position:relative;aspect-ratio:9/16;border-radius:12px;overflow:hidden;background:#120D1E;cursor:pointer;border:3px solid transparent;padding:0;transition:border-color .15s}
+.sn.on .ph{border-color:var(--p)}
+.sn .ph img,.sn .ph video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.sn .ck{position:absolute;top:8px;inset-inline-end:8px;width:24px;height:24px;border-radius:7px;background:rgba(255,255,255,.85);display:grid;place-items:center;color:transparent}
+.sn.on .ck{background:var(--p);color:#fff}
+.sn .ck .ic{width:15px;height:15px}
+.sn .k{position:absolute;bottom:8px;inset-inline-start:8px;background:rgba(0,0,0,.55);color:#fff;border-radius:999px;padding:1px 8px;font-size:12px}
+.sn .row{display:flex;justify-content:space-between;align-items:center;font-size:13.5px;color:var(--ink-2)}
+.sn .row button{border:0;background:none;color:var(--ink-2);width:30px;height:30px;border-radius:50%;display:grid;place-items:center;cursor:pointer}
+.sn .row button:hover{background:var(--p-wash);color:var(--p)}
+.dock{gap:10px;padding:8px 8px 8px 16px}
+.dock .btn{border:0}
+@media(max-width:600px){.go{flex-direction:column}.snaps{grid-template-columns:repeat(2,1fr);padding:12px;gap:10px}.hero{padding-top:28px}}
 </style>
 </head>
 <body>
+<header class="topbar"><div class="wrap"><a class="logo" href="./" aria-label="أهداف"><img src="a/logo-purple.png" alt="أهداف"></a></div></header>
 <main class="wrap">
  <section class="hero">
-  <div class="eyebrow"><span>أهداف</span><span>أرشيف سناب</span></div>
-  <h1 class="h-display" style="margin-top:12px">كل إعلان سناب، محفوظ بوقته</h1>
-  <p class="sum" id="sum">نحمّل الحملات…</p>
-  <div class="how">
-   <div class="panel"><b>١. أضف الحملة</b>حط يوزرات المؤثرين والفترة من وإلى.</div>
-   <div class="panel"><b>٢. نسحب كل ساعة</b>أي سناب ينزل بقصة المؤثر العامة داخل الفترة ينحفظ بالمقطع الأصلي.</div>
-   <div class="panel"><b>٣. حمّل وأرسل</b>كل سناب بوقت نشره، وتحميل الحملة كاملة بملف واحد.</div>
-  </div>
+  <div class="eyebrow"><span>أهداف</span><span>أدوات الفريق</span></div>
+  <h1 class="h-display">حفظ ستوري سناب</h1>
+  <p class="lead">حط يوزر المؤثر أو رابط حسابه، واحفظ مقاطع قصته بالجودة الأصلية.</p>
  </section>
- <div class="sec"><h2 class="h2">الحملات</h2><a class="btn pri sm" href="edit.html">إضافة حملة</a></div>
- <div class="grid" id="list"></div>
+
+ <form class="panel box" id="f">
+  <div class="go">
+   <input class="inp" id="u" placeholder="@username  أو  snapchat.com/add/username" autocomplete="off" autocapitalize="off" spellcheck="false" required>
+   <button class="btn pri lg" id="b"></button>
+  </div>
+  <div class="when">
+   <span>الفترة:</span>
+   <div class="seg" id="seg"><button type="button" data-h="0" class="on">كل القصة</button><button type="button" data-h="1">آخر ساعة</button><button type="button" data-h="3">آخر ٣ ساعات</button><button type="button" data-h="6">آخر ٦</button><button type="button" data-h="-1">من إلى</button></div>
+   <div class="range hide" id="range"><input class="inp" type="datetime-local" id="from"><span>إلى</span><input class="inp" type="datetime-local" id="to"></div>
+  </div>
+  <div class="small">تقدر تحط أكثر من حساب، افصل بينهم بمسافة أو سطر. القصة العامة تبقى ٢٤ ساعة بس، والقصص الخاصة للأصدقاء ما توصلها الأداة.</div>
+ </form>
+ <p class="msg" id="msg"></p>
+ <div id="out"></div>
 </main>
+<div class="dock hide" id="dock"><span class="st" id="dst"></span><button class="btn pri" id="dl"></button></div>
 <footer class="foot">أهداف · نربط الإبداع بالهدف</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="icons.js"></script>
-<script src="lib.js"></script>
 <script>
-topbar();
-const order={live:0,upcoming:1,ended:2};
-getJson('campaigns.json').then(async list=>{
- const L=document.getElementById('list');
- const live=list.filter(c=>phase(c)==='live').length;
- document.getElementById('sum').innerHTML=list.length
-  ?`<b>${N(live)}</b> حملة شغّالة الحين من أصل ${N(list.length)}. السحب يصير تلقائياً كل ساعة.`
-  :'ما فيه حملات للحين. ابدأ بإضافة أول حملة.';
- if(!list.length){L.innerHTML=`<div class="panel empty" style="grid-column:1/-1">ما فيه حملات.<br><a class="btn pri" href="edit.html">${ic('plus')}أضف حملة</a></div>`;return}
- list.sort((a,b)=>order[phase(a)]-order[phase(b)]||new Date(b.from)-new Date(a.from));
- for(const c of list){
-  const el=document.createElement('a'); el.className='panel cmp'; el.href=`campaign.html?c=${c.slug}`;
-  el.innerHTML=`<div class="top"><div class="eyebrow">${c.client?`<span>${esc(c.client)}</span>`:''}<span>${N(c.handles.length)} مؤثر</span></div>${phasePill(c)}</div>
-   <div class="title">${esc(c.title)}</div><div class="thumbs"><div class="none">${phase(c)==='upcoming'?'تبدأ '+dFull(new Date(c.from)):'ما انحفظ شي للحين'}</div></div>
-   <div class="meta"><span>${ic('calendar-days')}${period(c)}</span><span class="cnt"></span></div>`;
-  L.appendChild(el);
-  getJson(`campaigns/${c.slug}/snaps.json`).then(d=>{
-   if(!d.snaps.length)return;
-   const last=[...d.snaps].sort((a,b)=>b.t-a.t);
-   el.querySelector('.thumbs').innerHTML=last.slice(0,8).map(s=>`<img loading="lazy" alt="" src="campaigns/${c.slug}/${s.p||s.f}">`).join('');
-   el.querySelector('.cnt').innerHTML=`${ic('film')}<b>${N(d.snaps.length)}</b> سناب محفوظ`;
-  }).catch(()=>{});
+const API='https://snap-saver.nawafalsawed.workers.dev/';
+const $=id=>document.getElementById(id);
+const N=n=>Number(n).toLocaleString('en-US');
+const esc=t=>String(t??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const fmt=(t,o)=>new Intl.DateTimeFormat('ar-SA-u-nu-latn-ca-gregory',{timeZone:'Asia/Riyadh',...o}).format(t*1000);
+const when=t=>fmt(t,{weekday:'short',hour:'numeric',minute:'2-digit'});
+// file name: user_2026-11-09_14-05-33.mp4 (Riyadh time)
+const stamp=t=>new Date(t*1000+3*3600e3).toISOString().slice(0,19).replace('T','_').replace(/:/g,'-');
+const fname=(u,s)=>`${u}_${stamp(s.t)}.${s.video?'mp4':'jpg'}`;
+$('b').innerHTML=ic('download')+'اسحب القصة';
+
+let hours=0, accts=[];
+$('seg').onclick=e=>{const b=e.target.closest('button');if(!b)return;
+ $('seg').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
+ hours=+b.dataset.h; $('range').classList.toggle('hide',hours!==-1);
+ if(hours===-1&&!$('from').value){const d=new Date(Date.now()+3*3600e3).toISOString();$('from').value=d.slice(0,11)+'00:00';$('to').value=d.slice(0,16)}
+ if(accts.length)render()};
+['from','to'].forEach(id=>$(id).onchange=()=>accts.length&&render());
+// datetime-local is Riyadh wall time (+03:00, no DST)
+const inRange=t=>{
+ if(hours>0)return t>=Date.now()/1000-hours*3600;
+ if(hours===-1){const lo=$('from').value&&Date.parse($('from').value+':00+03:00')/1000, hi=$('to').value&&Date.parse($('to').value+':59+03:00')/1000;
+  return (!lo||t>=lo)&&(!hi||t<=hi)}
+ return true};
+
+async function load(u){
+ for(let i=0;i<2;i++){ // the first call sometimes hits a cold worker
+  try{const r=await fetch(API+'?u='+encodeURIComponent(u));const d=await r.json();
+   if(d.error==='notfound')return {q:u,err:'الحساب مو موجود أو مو عام. تأكد من اليوزر.'};
+   if(d.error==='bad')return {q:u,err:'هذا مو يوزر سناب.'};
+   if(!d.error)return d;
+  }catch(e){}
  }
-});
+ return {q:u,err:'ما قدرنا نوصل لسناب الحين. جرّب بعد دقيقة.'};
+}
+
+$('f').onsubmit=async e=>{
+ e.preventDefault();
+ const qs=[...new Set($('u').value.split(/[\s,،]+/).filter(Boolean))]; if(!qs.length)return;
+ $('b').disabled=true; $('msg').className='msg'; $('msg').textContent=qs.length>1?`نسحب ${N(qs.length)} حسابات…`:'نسحب القصة…'; $('out').innerHTML='';
+ accts=await Promise.all(qs.map(load));
+ accts.forEach(a=>(a.snaps||[]).forEach(s=>s.on=true));
+ $('b').disabled=false; $('msg').textContent=''; render();
+};
+
+function render(){
+ const vis=a=>(a.snaps||[]).filter(s=>inRange(s.t));
+ $('out').innerHTML=accts.map((a,ai)=>a.err?`<div class="panel acc"><div class="none">${ic('info')} <b dir="ltr">${esc(a.q)}</b>: ${a.err}</div></div>`:`
+  <div class="panel acc"><div class="hd"><img src="${esc(a.avatar)}" alt="" onerror="this.style.visibility='hidden'"><div><b>${esc(a.name||a.user)}</b><span class="small">@${esc(a.user)}</span></div><div class="sp"></div>
+   <span class="small">${N(vis(a).length)} من ${N(a.snaps.length)} سناب بالقصة</span>
+   ${vis(a).length?`<button class="btn sm" data-all="${ai}">${vis(a).every(s=>s.on)?'إلغاء التحديد':'تحديد الكل'}</button>`:''}</div>
+   ${vis(a).length?`<div class="snaps">${vis(a).map(s=>`<div class="sn${s.on?' on':''}" data-a="${ai}" data-i="${a.snaps.indexOf(s)}">
+     <button class="ph" title="تحديد"><img loading="lazy" alt="" src="${esc(s.preview||s.media)}"><span class="ck">${ic('check')}</span><span class="k">${s.video?'فيديو':'صورة'}</span></button>
+     <div class="row"><span>${when(s.t)}</span><button class="one" title="تحميل هذا" aria-label="تحميل">${ic('download')}</button></div></div>`).join('')}</div>`
+   :`<div class="none">${a.snaps.length?'ما فيه سنابات داخل الفترة اللي اخترتها.':'ما عنده قصة عامة الحين.'}</div>`}</div>`).join('');
+ document.querySelectorAll('.sn').forEach(el=>{const s=accts[el.dataset.a].snaps[el.dataset.i];
+  el.querySelector('.ph').onclick=()=>{s.on=!s.on;render()};
+  el.querySelector('.one').onclick=()=>save([[accts[el.dataset.a],s]])});
+ document.querySelectorAll('[data-all]').forEach(b=>b.onclick=()=>{const v=vis(accts[b.dataset.all]),on=!v.every(s=>s.on);v.forEach(s=>s.on=on);render()});
+ const sel=accts.flatMap(a=>vis(a).filter(s=>s.on).map(s=>[a,s]));
+ $('dock').classList.toggle('hide',!sel.length);
+ $('dst').textContent=`${N(sel.length)} محدد`;
+ $('dl').innerHTML=ic('download')+(sel.length===1?'تحميل':'تحميل الكل ZIP');
+ $('dl').onclick=()=>save(sel);
+}
+
+const blob=async u=>{const r=await fetch(u);if(!r.ok)throw new Error(r.status);return r.blob()};
+function give(b,name){const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),60000)}
+async function save(list){
+ const btn=$('dl'), lbl=btn.innerHTML; btn.disabled=true; $('msg').className='msg';
+ try{
+  if(list.length===1&&!list[0][1].overlay){btn.textContent='نحمّل…';const [a,s]=list[0];give(await blob(s.media),fname(a.user,s))}
+  else{
+   const z=new JSZip(), many=new Set(list.map(([a])=>a.user)).size>1;
+   for(let i=0;i<list.length;i++){const [a,s]=list[i]; btn.textContent=`${N(i+1)} من ${N(list.length)}…`;
+    const p=(many?a.user+'/':'')+fname(a.user,s); z.file(p,await blob(s.media));
+    if(s.overlay)z.file(p.replace(/\.\w+$/,'_نص.png'),await blob(s.overlay))}
+   btn.textContent='نجهّز الملف…';
+   const users=[...new Set(list.map(([a])=>a.user))];
+   give(await z.generateAsync({type:'blob'}),`سناب_${users.length>1?N(users.length)+'_حسابات':users[0]}_${stamp(Date.now()/1000).slice(0,10)}.zip`);
+  }
+ }catch(e){$('msg').className='msg err';$('msg').textContent='صار خطأ بالتحميل. الروابط تنتهي بعد فترة، اسحب القصة من جديد وجرّب.'}
+ btn.innerHTML=lbl; btn.disabled=false;
+}
+const q=new URLSearchParams(location.search).get('u'); if(q){$('u').value=q;$('f').requestSubmit()}
 </script>
 </body>
 </html>
